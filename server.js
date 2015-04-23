@@ -26,7 +26,7 @@ app.post('/', function(request, response) {
 
   });
 
-  store.push(request.body)
+  store.push(request.body.session_id)
   response.status(200).send();
 
 });
