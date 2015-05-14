@@ -47,7 +47,7 @@ app.post('/', function(request, response) {
 
 app.get('/', function(request, response) {
 
-  response.json(store[store.length - 1]['session_id'])
+  response.send(store[store.length - 1]['session_id'])
 
 })
 
