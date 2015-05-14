@@ -10,10 +10,24 @@ var Hipchat = require('node-hipchat');
 
 var HC = new Hipchat(config.hipchat.apikey);
 
+app.use(function(req, res, next) {
+    var data = '';
+    req.setEncoding('utf8');
+    req.on('data', function(chunk) {
+        data += chunk;
+    });
+    req.on('end', function() {
+        req.rawBody = data;
+        next();
+    });
+});
+
 app.set('json spaces', 4);
 app.use(bodyParser.json());
 
 app.post('/', function(request, response) {
+
+  request.body = JSON.parse(request.rawBody);
 
   var params = {
     room: config.hipchat.room,
@@ -26,7 +40,7 @@ app.post('/', function(request, response) {
 
   });
 
-  store.push(request.body.session_id)
+  store.push(request.body)
   response.status(200).send();
 
 });
