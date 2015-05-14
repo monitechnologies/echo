@@ -33,7 +33,7 @@ app.post('/', function(request, response) {
 
 app.get('/', function(request, response) {
 
-  response.json(store)
+  response.json(store[store.length - 1])
 
 })
 
